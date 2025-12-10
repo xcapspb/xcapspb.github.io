@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ввод кода</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: sans-serif;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Введите код доступа</h2>
+        <form id="codeForm">
+            <input type="password" id="codeInput" placeholder="Введите код" required maxlength="6">
+            <button type="submit">Войти</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const correctCode = "2026"; // Ваш правильный код
+        const redirectPage = "welcome.html"; // Страница для перенаправления
+
+        document.getElementById('codeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращает стандартную отправку формы
+            
+            const enteredCode = document.getElementById('codeInput').value;
+            const messageArea = document.getElementById('message');
+
+            if (enteredCode === correctCode) {
+                // Если код правильный, перенаправляем пользователя
+                window.location.href = redirectPage; // Используем window.location.href для перехода
+            } else {
+                // Если код неверный, показываем сообщение об ошибке
+                messageArea.textContent = "Неверный код. Попробуйте еще раз.";
+                document.getElementById('codeInput').value = ''; // Очищаем поле ввода
+            }
+        });
+    </script>
+</body>
+</html>
