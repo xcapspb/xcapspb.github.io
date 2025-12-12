@@ -3,31 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Добро пожаловать в Новый Год!</title>
+    <title>Зимнее Приветствие с музыкой</title>
     <style>
+        /* Стили из предыдущего примера (body, .greeting-text, .snowflakes, .snowflake, @keyframes fall) */
         body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1e5799 0%, #7db9e8 100%);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #e9ecef;
+            overflow: hidden;
+            color: white;
             font-family: sans-serif;
-            flex-direction: column;
         }
-        h1 {
-            color: #28a745;
+
+        .greeting-text {
+            font-size: 5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            z-index: 2;
+            pointer-events: none;
         }
-        a {
-            margin-top: 20px;
-            color: #007bff;
-            text-decoration: none;
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Добро пожаловать!</h1>
-    <p>Вы успешно ввели правильный код и перешли в 2026 год!</p>
-    <a href="index.html">Обратной дороги нет, вернуться можно только на предыдую страницу :-) </a>
-</body>
 
+    <!-- Аудио плеер для фоновой музыки -->
+    <!-- 'loop' обеспечивает повторное воспроизведение. 'autoplay' пытается начать сразу (см. примечание ниже). -->
+    <audio id="background-music" src="music.mp3" loop autoplay></audio>
+    
+    <!-- Кнопка для запуска музыки, если браузер блокирует автозапуск -->
+    <button id="play-button" style="position: fixed; bottom: 20px; right: 20px; z-index: 10; padding: 10px;">
+        Включить музыку
+    </button>
+
+
+    <div class="greeting-text">
+        Добро пожаловать в Новый Год!
+    </div>
+
+    <div class="snowflakes" aria-hidden="true"></div>
+
+    <script>
+        // Скрипт для снежинок (без изменений)
+        (function() {
+            const snowflakesContainer = document.querySelector('.snowflakes');
+            const numFlakes = 50;
+            const baseDuration = 10;
+
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                const size = Math.random() * 5 + 2;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${Math.random() * 5 + baseDuration}s`;
+                snowflake.style.animationDelay = `${Math.random() * 10}s`;
+
+                snowflakesContainer.appendChild(snowflake);
+
+                snowflake.addEventListener('animationend', () => {
+                    snowflake.remove();
+                    createSnowflake();
+                });
+            }
+
+            for (let i = 0; i < numFlakes; i++) {
+                createSnowflake();
+            }
+        })();
+
+        // Скрипт для обхода блокировки автозапуска браузерами
+        document.getElementById('play-button').addEventListener('click', function() {
+            const music = document.getElementById('background-music');
+            music.play();
+            this.style.display = 'none'; // Скрываем кнопку после нажатия
+        });
+        
+        // Попытка автозапуска, если разрешено.
+        document.getElementById('background-music').play().then(() => {
+            // Если автозапуск сработал, скрываем кнопку сразу
+            document.getElementById('play-button').style.display = 'none';
+        }).catch(error => {
+            // Если автозапуск заблокирован, кнопка остается видимой
+            console.log("Автозапуск музыки заблокирован браузером.");
+        });
+
+    </script>
+
+</body>
 </html>
