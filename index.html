@@ -47,7 +47,7 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Введите код доступа</h2>
+        <h2>Введите код доступа для перехода в 2026 год!</h2>
         <form id="codeForm">
             <input type="password" id="codeInput" placeholder="Введите код" required maxlength="6">
             <button type="submit">Войти</button>
@@ -70,10 +70,11 @@
                 window.location.href = redirectPage; // Используем window.location.href для перехода
             } else {
                 // Если код неверный, показываем сообщение об ошибке
-                messageArea.textContent = "Неверный код. Попробуйте еще раз.";
+                messageArea.textContent = "Неверный код. Попробуйте еще раз, или оставайтесь в 2025...";
                 document.getElementById('codeInput').value = ''; // Очищаем поле ввода
             }
         });
     </script>
 </body>
+
 </html>
