@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зимнее Приветствие с музыкой</title>
+    <title>Зимнее Приветствие в 2026 с музыкой</title>
     <style>
         /* Стили из предыдущего примера (body, .greeting-text, .snowflakes, .snowflake, @keyframes fall) */
         body {
@@ -27,6 +27,18 @@
             z-index: 1;
             pointer-events: none;
         }
+
+        .fine-text {
+            font-size: 1;
+            text-align: center;
+/*            font-weight: bold;*/
+/*            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);*/
+/*            z-index: 1;*/
+            pointer-events: none;
+            bottom: 0;
+            align-self: flex-end
+        }
+        
 
         .snowflakes {
             position: fixed;
@@ -87,6 +99,10 @@
         🎄🎅😉🎄<br>
     </div>
 
+    <div class="fine-text">
+     Быть может, фамилия композитора даст подсказку!
+    </div>
+    
     <div class="snowflakes" aria-hidden="true"></div>
 
     <script>
@@ -139,6 +155,7 @@
 
 </body>
 </html>
+
 
 
 
