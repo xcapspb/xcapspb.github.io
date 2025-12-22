@@ -58,7 +58,7 @@
     <script>
         const correctCode = "7534"; // Ваш правильный код
         const redirectPage = "welcome.html"; // Страница для перенаправления
-
+        let   flag = 0; //попытки ввода
         document.getElementById('codeForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Предотвращает стандартную отправку формы
             
@@ -72,11 +72,17 @@
                 // Если код неверный, показываем сообщение об ошибке
                 messageArea.textContent = "Неверный код. Попробуйте еще раз, или оставайтесь в 2025...";
                 document.getElementById('codeInput').value = ''; // Очищаем поле ввода
+		if (flag === 1) {
+                   messageArea.textContent = "Неверный код. Верный ведь код - текущий год!";
+                   }
+		if (flag > 1) {
+                   messageArea.textContent = "Неверный код. Укажи текущий год по славянскому календарю от Сотворения Мира.";
+                   }
+                flag = flag + 1;
             }
         });
     </script>
 </body>
 
 </html>
-
 
