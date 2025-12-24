@@ -93,13 +93,13 @@
         // Скрипт для снежинок (без изменений)
         (function() {
             const snowflakesContainer = document.querySelector('.snowflakes');
-            const numFlakes = 200;
+            const numFlakes = 100;
             const baseDuration = 10;
 
             function createSnowflake() {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
-                const size = Math.random() * 10 + 2;
+                const size = Math.random() * 8 + 2;
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
                 snowflake.style.left = `${Math.random() * 100}%`;
@@ -139,6 +139,7 @@
 
 </body>
 </html>
+
 
 
 
