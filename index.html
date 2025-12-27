@@ -47,10 +47,10 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Введите код доступа для перехода в 2026 год!</h2>
+        <h2>Подберите код доступа для перехода в 2026 год!</h2>
         <form id="codeForm">
             <input type="password" id="codeInput" placeholder="Введите код" required maxlength="6">
-            <button type="submit">Войти</button>
+            <button type="submit">Перейти</button>
         </form>
         <p id="message"></p>
     </div>
@@ -73,10 +73,10 @@
                 messageArea.textContent = "Неверный код. Попробуйте еще раз, или оставайтесь в 2025...";
                 document.getElementById('codeInput').value = ''; // Очищаем поле ввода
 		if (flag === 1) {
-                   messageArea.textContent = "Неверный код. Верный ведь код - текущий год!";
+                   messageArea.textContent = "И вновь Неверный код. А Верный код - текущий год!";
                    }
 		if (flag > 1) {
-                   messageArea.textContent = "Неверный код. Укажи текущий год по славянскому календарю от Сотворения Мира.";
+                   messageArea.textContent = "Снова Неверный код. Укажи текущий год по славянскому календарю от Сотворения Мира.";
                    }
                 flag = flag + 1;
             }
@@ -85,4 +85,5 @@
 </body>
 
 </html>
+
 
