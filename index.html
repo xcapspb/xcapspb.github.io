@@ -116,11 +116,11 @@
 <body>
 
     <div class="garland" id="garland"></div>
-    <div id="score-board">Собрано шаров: <span id="count">0</span> / 50</div>
+    <div id="score-board">Выполнено: <span id="count">0</span> / 50</div>
     
     <div id="congrats">
-                Константин!<br>
-		Ты честно добыл свой подарок!<br>
+                Константин! <br>
+		         Теперь подарок твой!<br>
                 С Днём Рождения!<br>
     </div>
 
@@ -217,7 +217,7 @@
                 scoreElement.textContent = score;
                 clearInterval(interval);
                 balloon.remove();
-                if (score >= 5) endGame();
+                if (score >= 50) endGame();
             });
         }
 
