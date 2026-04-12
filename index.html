@@ -3,92 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ввод кода на доступ к Новому Году</title>
+    <title>С Днём Рождения, Константин!</title>
     <style>
         body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle, #e0f2fe 0%, #bae6fd 100%);
+            font-family: 'Arial', sans-serif;
+            user-select: none;
+        }
+
+        /* Гирлянда */
+        .garland {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            font-family: sans-serif;
+            justify-content: space-around;
+            pointer-events: none;
+            z-index: 10;
         }
-        .form-container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .flag {
+            width: 35px;
+            height: 50px;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            animation: swing 3s ease-in-out infinite alternate;
+            transform-origin: top center;
         }
-        input[type="password"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        @keyframes swing { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+
+        #score-board {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 26px;
+            font-weight: bold;
+            color: #1e40af;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 100;
         }
-        button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
+
+        /* Шарики */
+        .balloon {
+            position: absolute;
+            width: 75px;
+            height: 95px;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
             cursor: pointer;
+            box-shadow: inset -8px -12px 15px rgba(0,0,0,0.2);
+            z-index: 5;
+        }
+        .balloon::before {
+            content: "";
+            position: absolute;
+            top: 15%; left: 20%;
+            width: 18px; height: 25px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            transform: rotate(20deg);
+        }
+        .balloon::after {
+            content: "";
+            position: absolute;
+            bottom: -25px; left: 36px;
+            width: 1.5px; height: 30px;
+            background: rgba(0,0,0,0.15);
+        }
+
+        /* Финальный экран */
+        #congrats {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 42px;
+            text-align: center;
+            font-weight: 900;
+            z-index: 200;
+            animation: blink 0.6s infinite, rainbow 3s infinite linear;
+            width: 90%;
+            pointer-events: none;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            z-index: 150;
+            pointer-events: none;
         }
-        button:hover {
-            background-color: #0056b3;
+
+        @keyframes blink {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.08); }
         }
-        #message {
-            color: red;
-            margin-top: 10px;
+        @keyframes rainbow {
+            0% { color: #ff0000; text-shadow: 0 0 20px #ff000055; }
+            33% { color: #33cc33; text-shadow: 0 0 20px #33cc3355; }
+            66% { color: #0066ff; text-shadow: 0 0 20px #0066ff55; }
+            100% { color: #ff00ff; text-shadow: 0 0 20px #ff00ff55; }
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Подберите код доступа для перехода в 2026 год!</h2>
-        <form id="codeForm">
-            <input type="password" id="codeInput" placeholder="Введите код" required maxlength="6">
-            <button type="submit">Перейти</button>
-        </form>
-        <p id="message"></p>
+
+    <div class="garland" id="garland"></div>
+    <div id="score-board">Собрано шаров: <span id="count">0</span> / 50</div>
+    
+    <div id="congrats">
+                Константин!<br>
+		Ты честно добыл свой подарок!<br>
+                С Днём Рождения!<br>
     </div>
 
-    <script>
-        const correctCode = "7534"; // Ваш правильный код
-        const redirectPage = "welcome.html"; // Страница для перенаправления
-        let   flag = 0; //попытки ввода
-        document.getElementById('codeForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Предотвращает стандартную отправку формы
-            
-            const enteredCode = document.getElementById('codeInput').value;
-            const messageArea = document.getElementById('message');
+    <!-- Аудио плеер (скрытый) -->
+    <audio id="birthday-music" preload="auto">
+        <source src="The Offspring - The Kids Aren't Alright.mp3" type="audio/mpeg">
+    </audio>
 
-            if (enteredCode === correctCode) {
-                // Если код правильный, перенаправляем пользователя
-                window.location.href = redirectPage; // Используем window.location.href для перехода
-            } else {
-                // Если код неверный, показываем сообщение об ошибке
-                messageArea.textContent = "Неверный код. Попробуйте еще раз, или оставайтесь в 2025...";
-                document.getElementById('codeInput').value = ''; // Очищаем поле ввода
-		if (flag > 1) {
-                   messageArea.textContent = "И вновь Неверный код. А Верный код - текущий год!";
-                   }
-		if (flag > 3) {
-                   messageArea.textContent = "Снова Неверный код. Укажите текущий год по славянскому календарю от Сотворения Мира.";
-                   }
-                flag = flag + 1;
+    <canvas id="fireworks"></canvas>
+
+    <script>
+        const scoreElement = document.getElementById('count');
+        const congratsElement = document.getElementById('congrats');
+        const music = document.getElementById('birthday-music');
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        const colors = ['#ff4d4d', '#4dabff', '#4dff4d', '#ffd64d', '#ff4dff', '#ff9900'];
+        let score = 0;
+        let gameActive = true;
+        let fireworks = [];
+
+        // Инициализация Canvas
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        // Гирлянда
+        const garland = document.getElementById('garland');
+        for (let i = 0; i < 25; i++) {
+            const flag = document.createElement('div');
+            flag.className = 'flag';
+            flag.style.backgroundColor = colors[i % colors.length];
+            flag.style.animationDelay = (i * 0.1) + 's';
+            garland.appendChild(flag);
+        }
+
+        // Звук хлопка
+	function playPopSound() {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const noise = audioCtx.createOscillator(); // Дополнительный слой для "хруста"
+            const g = audioCtx.createGain();
+            
+            // Основной тон
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            
+            // Добавляем немного резкости (белый шум/квадратная волна)
+            noise.type = 'square';
+            noise.frequency.setValueAtTime(800, audioCtx.currentTime);
+            noise.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+
+            // Увеличиваем громкость (было 0.2, стало 0.8)
+            g.gain.setValueAtTime(0.8, audioCtx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            
+            osc.connect(g);
+            noise.connect(g);
+            g.connect(audioCtx.destination);
+            
+            osc.start();
+            noise.start();
+            osc.stop(audioCtx.currentTime + 0.15);
+            noise.stop(audioCtx.currentTime + 0.05);
+        }
+        function createBalloon() {
+            if (!gameActive) return;
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.background = `radial-gradient(circle at 30% 30%, #fff 0%, ${color} 25%, ${color} 100%)`;
+            balloon.style.left = Math.random() * (window.innerWidth - 80) + 'px';
+            balloon.style.bottom = '-150px';
+            document.body.appendChild(balloon);
+
+            let pos = -150;
+            const speed = 1.5 + Math.random() * 2.5;
+            const interval = setInterval(() => {
+                if (pos > window.innerHeight + 100) {
+                    clearInterval(interval); balloon.remove();
+                } else {
+                    pos += speed; balloon.style.bottom = pos + 'px';
+                }
+            }, 20);
+
+            balloon.addEventListener('mousedown', () => {
+                if (!gameActive) return;
+                playPopSound();
+                score++;
+                scoreElement.textContent = score;
+                clearInterval(interval);
+                balloon.remove();
+                if (score >= 5) endGame();
+            });
+        }
+
+        // Логика салюта
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.velocity = { x: (Math.random() - 0.5) * 8, y: (Math.random() - 0.5) * 8 };
+                this.alpha = 1;
+                this.friction = 0.95;
             }
-        });
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+            update() {
+                this.velocity.x *= this.friction;
+                this.velocity.y *= this.friction;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= 0.01;
+            }
+        }
+
+        function createFirework() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 40; i++) {
+                fireworks.push(new Particle(x, y, color));
+            }
+        }
+
+        function animateFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((p, i) => {
+                if (p.alpha <= 0) fireworks.splice(i, 1);
+                else { p.update(); p.draw(); }
+            });
+            if (gameActive === false && Math.random() < 0.1) createFirework();
+            requestAnimationFrame(animateFireworks);
+        }
+
+        function endGame() {
+            gameActive = false;
+            congratsElement.style.display = 'block';
+            
+            // Запуск музыки
+            music.play().catch(e => console.log("Браузер заблокировал автовоспроизведение. Нажмите на экран."));
+            
+            document.querySelectorAll('.balloon').forEach(b => b.remove());
+            animateFireworks();
+        }
+
+        setInterval(createBalloon, 800);
     </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
