@@ -168,7 +168,7 @@
 
         // Гирлянда
 const garland = document.getElementById('garland');
-const flagCount = 16; // Немного больше флажков для плотности
+const flagCount = 15; // Немного больше флажков для плотности
 
 for (let i = 0; i < flagCount; i++) {
     const flag = document.createElement('div');
@@ -180,7 +180,7 @@ for (let i = 0; i < flagCount; i++) {
     
     // Исправленная формула дуги (теперь она провисает вниз)
     // Используем синус или параболу. y будет максимальным в центре.
-    const bowDepth = 45; // Глубина провисания в пикселях
+    const bowDepth = 5; // Глубина провисания в пикселях
     const y = Math.sin(percent * Math.PI) * bowDepth;
     
     flag.style.left = x + '%';
