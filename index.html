@@ -119,9 +119,10 @@
     <div id="score-board">Выполнено: <span id="count">0</span> / 50</div>
     
     <div id="congrats">
-                Константин! <br>
-		         Теперь подарок твой!<br>
-                С Днём Рождения!<br>
+                Константин! <br><br>
+		         Теперь подарок твой!<br><br>
+                С Днём Рождения!<br><br>
+				🎁	
     </div>
 
     <!-- Аудио плеер (скрытый) -->
@@ -152,7 +153,7 @@
 
         // Гирлянда
         const garland = document.getElementById('garland');
-        for (let i = 0; i < 25; i++) {
+        for (let i = 0; i < 15; i++) {
             const flag = document.createElement('div');
             flag.className = 'flag';
             flag.style.backgroundColor = colors[i % colors.length];
@@ -225,7 +226,7 @@
                 scoreElement.textContent = score;
                 clearInterval(interval);
                 balloon.remove();
-                if (score >= 50) endGame();
+                if (score >= 5) endGame();
             });
         }
 
