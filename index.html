@@ -16,41 +16,36 @@
         /* Контейнер для нити гирлянды */
 .garland-container {
     position: fixed;
-    top: -10px;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 120px;
+    height: 150px; /* Увеличили высоту контейнера */
     z-index: 10;
     pointer-events: none;
 }
 
-/* Сама нить (дуга) */
 .rope {
     position: absolute;
-    width: 110%;
-    height: 80px;
-    left: -5%;
-    border-bottom: 2px solid rgba(0,0,0,0.2);
-    border-radius: 50%;
+    width: 100%;
+    height: 100px;
+    border-bottom: 2px solid rgba(0,0,0,0.3); /* Видимая нить */
+    border-radius: 0 0 50% 50% / 0 0 100% 100%; /* Провис вниз */
+    top: -50px; /* Прячем верхнюю часть овала, оставляя только нижнюю дугу */
 }
 
 .flag {
     position: absolute;
     width: 30px;
     height: 45px;
-    /* Реалистичная форма флажка с вырезом */
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
     transform-origin: top center;
-    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
-    filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
+    filter: drop-shadow(0px 3px 2px rgba(0,0,0,0.2));
 }
 
 @keyframes flagSwing {
-    0% { transform: rotateX(0deg) rotateZ(-5deg); }
-    50% { transform: rotateX(15deg) rotateZ(0deg); }
-    100% { transform: rotateX(0deg) rotateZ(5deg); }
-}
-        #score-board {
+    0% { transform: rotateX(0deg) rotateZ(-3deg); }
+    100% { transform: rotateX(20deg) rotateZ(3deg); }
+}        #score-board {
             position: fixed;
             top: 70px;
             left: 50%;
@@ -173,28 +168,30 @@
 
         // Гирлянда
 const garland = document.getElementById('garland');
-const flagCount = 20; // Количество флажков
+const flagCount = 16; // Немного больше флажков для плотности
 
 for (let i = 0; i < flagCount; i++) {
     const flag = document.createElement('div');
     flag.className = 'flag';
     
-    // Расставляем флажки по дуге (параболе)
-    const x = (i / (flagCount - 1)) * 100; // Позиция по горизонтали в %
-    // Математическая формула дуги (провисание нити)
-    const y = Math.pow((i - (flagCount - 1) / 2), 2) * 0.4; 
+    // Позиция по горизонтали (от 5% до 95%, чтобы не прилипали к краям)
+    const percent = i / (flagCount - 1);
+    const x = 5 + (percent * 90); 
+    
+    // Исправленная формула дуги (теперь она провисает вниз)
+    // Используем синус или параболу. y будет максимальным в центре.
+    const bowDepth = 45; // Глубина провисания в пикселях
+    const y = Math.sin(percent * Math.PI) * bowDepth;
     
     flag.style.left = x + '%';
-    flag.style.top = y + 'px';
+    flag.style.top = y + 'px'; // Теперь они опускаются вместе с нитью
     flag.style.backgroundColor = colors[i % colors.length];
     
-    // Индивидуальная анимация для каждого флажка
-    flag.style.animation = `flagSwing ${2 + Math.random()}s ease-in-out infinite alternate`;
-    flag.style.animationDelay = (Math.random() * 2) + 's';
+    // Случайная скорость покачивания
+    flag.style.animation = `flagSwing ${1.5 + Math.random()}s ease-in-out infinite alternate`;
     
     garland.appendChild(flag);
-}
-        // Звук хлопка
+}        // Звук хлопка
 
 		
 	function playPopSound() {
