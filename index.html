@@ -13,26 +13,43 @@
             user-select: none;
         }
 
-        /* Гирлянда */
-        .garland {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .flag {
-            width: 35px;
-            height: 50px;
-            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
-            animation: swing 3s ease-in-out infinite alternate;
-            transform-origin: top center;
-        }
-        @keyframes swing { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+        /* Контейнер для нити гирлянды */
+.garland-container {
+    position: fixed;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 10;
+    pointer-events: none;
+}
 
+/* Сама нить (дуга) */
+.rope {
+    position: absolute;
+    width: 110%;
+    height: 80px;
+    left: -5%;
+    border-bottom: 2px solid rgba(0,0,0,0.2);
+    border-radius: 50%;
+}
+
+.flag {
+    position: absolute;
+    width: 30px;
+    height: 45px;
+    /* Реалистичная форма флажка с вырезом */
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 80%, 0% 100%);
+    transform-origin: top center;
+    box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+    filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes flagSwing {
+    0% { transform: rotateX(0deg) rotateZ(-5deg); }
+    50% { transform: rotateX(15deg) rotateZ(0deg); }
+    100% { transform: rotateX(0deg) rotateZ(5deg); }
+}
         #score-board {
             position: fixed;
             top: 70px;
@@ -115,7 +132,10 @@
 </head>
 <body>
 
-    <div class="garland" id="garland"></div>
+    <div class="garland-container">
+    <div class="rope"></div>
+    <div id="garland"></div>
+</div>
     <div id="score-board">Выполнено: <span id="count">0</span> / 50</div>
     
     <div id="congrats">
@@ -152,15 +172,28 @@
         resize();
 
         // Гирлянда
-        const garland = document.getElementById('garland');
-        for (let i = 0; i < 15; i++) {
-            const flag = document.createElement('div');
-            flag.className = 'flag';
-            flag.style.backgroundColor = colors[i % colors.length];
-            flag.style.animationDelay = (i * 0.1) + 's';
-            garland.appendChild(flag);
-        }
+const garland = document.getElementById('garland');
+const flagCount = 20; // Количество флажков
 
+for (let i = 0; i < flagCount; i++) {
+    const flag = document.createElement('div');
+    flag.className = 'flag';
+    
+    // Расставляем флажки по дуге (параболе)
+    const x = (i / (flagCount - 1)) * 100; // Позиция по горизонтали в %
+    // Математическая формула дуги (провисание нити)
+    const y = Math.pow((i - (flagCount - 1) / 2), 2) * 0.4; 
+    
+    flag.style.left = x + '%';
+    flag.style.top = y + 'px';
+    flag.style.backgroundColor = colors[i % colors.length];
+    
+    // Индивидуальная анимация для каждого флажка
+    flag.style.animation = `flagSwing ${2 + Math.random()}s ease-in-out infinite alternate`;
+    flag.style.animationDelay = (Math.random() * 2) + 's';
+    
+    garland.appendChild(flag);
+}
         // Звук хлопка
 
 		
