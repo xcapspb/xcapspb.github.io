@@ -226,7 +226,7 @@
                 scoreElement.textContent = score;
                 clearInterval(interval);
                 balloon.remove();
-                if (score >= 5) endGame();
+                if (score >= 50) endGame();
             });
         }
 
@@ -275,8 +275,12 @@
 
         function endGame() {
             gameActive = false;
+            // Скрываем счётчик
+            document.getElementById('score-board').style.display = 'none';
+ 			
+            // Показываем поздравительную надпись
             congratsElement.style.display = 'block';
-            
+           
             // Запуск музыки
             music.play().catch(e => console.log("Браузер заблокировал автовоспроизведение. Нажмите на экран."));
             
@@ -284,7 +288,7 @@
             animateFireworks();
         }
 
-        setInterval(createBalloon, 800);
+        setInterval(createBalloon, 600);
     </script>
 </body>
 </html>
