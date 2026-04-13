@@ -141,7 +141,7 @@
         let score = 0;
         let gameActive = true;
         let fireworks = [];
-
+        let audioCtx = null;
         // Инициализация Canvas
         function resize() {
             canvas.width = window.innerWidth;
@@ -161,35 +161,43 @@
         }
 
         // Звук хлопка
-	function playPopSound() {
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = audioCtx.createOscillator();
-            const noise = audioCtx.createOscillator(); // Дополнительный слой для "хруста"
-            const g = audioCtx.createGain();
-            
-            // Основной тон
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-            
-            // Добавляем немного резкости (белый шум/квадратная волна)
-            noise.type = 'square';
-            noise.frequency.setValueAtTime(800, audioCtx.currentTime);
-            noise.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
 
-            // Увеличиваем громкость (было 0.2, стало 0.8)
-            g.gain.setValueAtTime(0.8, audioCtx.currentTime);
-            g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
-            
-            osc.connect(g);
-            noise.connect(g);
-            g.connect(audioCtx.destination);
-            
-            osc.start();
-            noise.start();
-            osc.stop(audioCtx.currentTime + 0.15);
-            noise.stop(audioCtx.currentTime + 0.05);
-        }
+		
+	function playPopSound() {
+    // 2. Инициализируем его только один раз при первом вызове
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
+    // Если контекст "спит" (часто бывает на iOS), пробуждаем его
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+
+    const osc = audioCtx.createOscillator();
+    const noise = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+    
+    noise.type = 'square';
+    noise.frequency.setValueAtTime(800, audioCtx.currentTime);
+    noise.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.05);
+
+    g.gain.setValueAtTime(0.8, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+    
+    osc.connect(g);
+    noise.connect(g);
+    g.connect(audioCtx.destination);
+    
+    osc.start();
+    noise.start();
+    osc.stop(audioCtx.currentTime + 0.15);
+    noise.stop(audioCtx.currentTime + 0.05);
+}
         function createBalloon() {
             if (!gameActive) return;
             const balloon = document.createElement('div');
