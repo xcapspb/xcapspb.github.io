@@ -105,21 +105,60 @@
             text-shadow: 0 0 15px rgba(0,0,0,0.5);
             animation: pulse 1.5s infinite, rainbow 4s infinite linear;
         }
-        @keyframes pulse { 0%, 100% { scale: 1; } 50% { scale: 1.1; } }
+        @keyframes pulse { 10%, 100% { scale: 1; } 50% { scale: 1.1; } }
         @keyframes rainbow {
-            0% { color: #ff0000; } 33% { color: #00ff00; } 66% { color: #0088ff; } 100% { color: #ff0000; }
+            10% { color: #ff0000; } 33% { color: #00ff00; } 66% { color: #ffff00; } 100% { color: #ff0000; }
         }
 
         canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 5; }
+
+#modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); /* Темный фон */
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Плавное появление фона */
+}
+
+/* Само фото */
+#modal img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    filter: grayscale(100%); /* Изначально серое */
+    transition: filter 2s ease-in-out; /* Плавный переход цвета */
+}
+
+/* Класс для активации цвета */
+#modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+#modal.active img {
+    filter: grayscale(0%); /* Становится цветным */
+}
+
+
     </style>
 </head>
 <body>
+
+<div id="modal" onclick="this.classList.remove('active'); setTimeout(()=>this.style.display='none', 1000)">
+    <img id="celebrant-photo" src="photo.jpg" alt="Танечка">
+</div>
+
 
     <div class="garland" id="garland"></div>
     <div id="score-board">Счёт: <span id="score">0</span>/49</div>
     <div id="congrats">С Днём Рождения,<br>
                          Танечка!!!<br>
-                          ❤️🎁❤️</div>
+                          ❤️<span id="open-photo" style="cursor: pointer; ">🎁</span>❤️<br>❤️</div>
     
     <canvas id="fireworks"></canvas>
 
@@ -127,6 +166,7 @@
     <audio id="pop-sound" src="pop.mp3"></audio>
     <audio id="fail-sound" src="failure.mp3"></audio>
     <audio id="bg-music" src="The Offspring - The Kids Aren't Alright.mp3" loop></audio>
+    <audio id="magic-sound" src="magic.mp3"></audio>
 
     <script>
         const scoreEl = document.getElementById('score');
@@ -194,7 +234,7 @@
                 balloon.remove();
                 score++;
                 updateScoreDisplay();
-                if (score >= 49) winGame();
+                if (score >= 4) winGame();
             };
 
             balloon.addEventListener('transitionend', () => {
@@ -281,6 +321,28 @@
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateFireworks);
         }
+
+const modal = document.getElementById('modal');
+const magicSound = document.getElementById('magic-sound');
+
+document.getElementById('open-photo').onclick = () => {
+    // 1. Проигрываем волшебный звук
+bgMusic.volume = 0.3;
+    magicSound.currentTime = 0;
+    magicSound.play().catch(() => {
+        console.log("Нужно взаимодействие с экраном для звука");
+    });
+
+    // 2. Показываем модальное окно
+    modal.style.display = 'flex';
+    
+    // 3. Запускаем анимацию проявления и цвета
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 50);
+bgMusic.volume = 1.0;
+};
+
     </script>
 </body>
 </html>
