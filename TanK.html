@@ -131,7 +131,7 @@
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(255,255,255,0.3);
     filter: grayscale(100%); /* Изначально серое */
-    transition: filter 3s ease-in-out; /* Плавный переход цвета */
+    transition: filter 5s ease-in-out; /* Плавный переход цвета */
 }
 
 /* Класс для активации цвета */
@@ -160,7 +160,7 @@
                          Танечка!!!<br>
                           ❤️<span id="open-photo" style="cursor: pointer; ">🎁</span>❤️<br>❤️<br>
 
-            <div style="font-size: 18px; color: #666; font-style: italic; margin-top: 15px; line-height: 1.4;">
+            <div style="font-size: 14px; color: #666; font-style: italic; margin-top: 15px; line-height: 1.4;">
                  Возьми подарок виртуальный<br>
                  И вскоре станет он реальный! 
                  </div>
@@ -341,7 +341,7 @@
 
         // 3. Показываем фото
         modal.style.display = 'flex';
-        setTimeout(() => modal.classList.add('active'), 50);
+        setTimeout(() => modal.classList.add('active'), 200);
     };
 
     modal.onclick = () => {
