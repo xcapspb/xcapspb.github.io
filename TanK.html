@@ -131,7 +131,7 @@
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(255,255,255,0.3);
     filter: grayscale(100%); /* Изначально серое */
-    transition: filter 2s ease-in-out; /* Плавный переход цвета */
+    transition: filter 3s ease-in-out; /* Плавный переход цвета */
 }
 
 /* Класс для активации цвета */
@@ -175,6 +175,8 @@
         const popSound = document.getElementById('pop-sound');
         const failSound = document.getElementById('fail-sound');
         const bgMusic = document.getElementById('bg-music');
+	const modal = document.getElementById('modal');
+	const magicSound = document.getElementById('magic-sound');
         
         let score = 0;
         let missedCount = 0;
@@ -322,26 +324,35 @@
             requestAnimationFrame(animateFireworks);
         }
 
-const modal = document.getElementById('modal');
-const magicSound = document.getElementById('magic-sound');
+   // ЛОГИКА МОДАЛЬНОГО ОКНА С ФОТО
+    document.getElementById('open-photo').onclick = () => {
+        // 1. Приглушаем музыку
+        bgMusic.volume = 0.2;
+        
+        // 2. Звук магии
+        magicSound.currentTime = 0;
+        magicSound.play();
 
-document.getElementById('open-photo').onclick = () => {
-    // 1. Проигрываем волшебный звук
-bgMusic.volume = 0.3;
-    magicSound.currentTime = 0;
-    magicSound.play().catch(() => {
-        console.log("Нужно взаимодействие с экраном для звука");
-    });
+        // 3. Показываем фото
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 50);
+    };
 
-    // 2. Показываем модальное окно
-    modal.style.display = 'flex';
-    
-    // 3. Запускаем анимацию проявления и цвета
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 50);
-bgMusic.volume = 1.0;
-};
+    modal.onclick = () => {
+        // Убираем активный класс (запускает обратную анимацию)
+        modal.classList.remove('active');
+        
+        // Возвращаем громкость музыки
+        bgMusic.volume = 1.0;
+
+        // Прячем блок совсем после завершения анимации (1 сек)
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 1000);
+    };
+
+    spawnBalloon();
+    animate();
 
     </script>
 </body>
