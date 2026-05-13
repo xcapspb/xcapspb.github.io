@@ -131,7 +131,7 @@
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(255,255,255,0.3);
     filter: grayscale(100%); /* Изначально серое */
-    transition: filter 5s ease-in-out; /* Плавный переход цвета */
+    transition: filter 8s ease-in-out; /* Плавный переход цвета */
 }
 
 /* Класс для активации цвета */
@@ -242,7 +242,7 @@
                 balloon.remove();
                 score++;
                 updateScoreDisplay();
-                if (score >= 4) winGame();
+                if (score >= 5) winGame();
             };
 
             balloon.addEventListener('transitionend', () => {
