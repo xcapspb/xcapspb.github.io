@@ -249,7 +249,7 @@
                 if (balloon.parentNode) {
                     balloon.remove();
                     missedCount++;
-                    if (missedCount % 5 === 0 && score > 0) {
+                    if (missedCount % 3 === 0 && score > 0) {
                         score--;
                         applyPenalty();
                     }
