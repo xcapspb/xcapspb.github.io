@@ -1,3 +1,327 @@
+Перейти к основному контентуСправка по использованию специальных возможностей
+Режим ИИ
+Все
+Картинки
+Видео
+Новости
+Ещё
+
+
+
+
+"Нужен HTML код выводящий текст:Привет, Марта!Держи свежие прокси:"
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Приветствие</title>
+</head>
+<body>
+    <p>Привет, Марта!</p>
+    <p>Держи свежие прокси:</p>
+</body>
+</html>
+Используйте код с осторожностью.
+Чтобы продолжить настройку страницы, уточните:
+Нужен ли ниже список прокси (с автоматическим обновлением или статичный)?
+Добавить ли стили оформления (цвета, шрифты, темную тему)?
+Требуется ли кнопка для копирования прокси в один клик?
+
+
+
+
+"Требуется стильное оформление, адаптированное для просмотра на смартфоне."
+Вот адаптивный HTML-код со стильным современным дизайном в тёмных тонах, оптимизированный под экраны смартфонов.
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свежие прокси для Марты</title>
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #58a6ff;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px; /* Идеально для мобильных экранов */
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Заглушка для списка прокси (можно удалить или заменить) */
+        .proxy-list {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            line-height: 1.6;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="greeting">Привет, Марта!</div>
+        <div class="subtitle">Держи свежие прокси:</div>
+        
+        <!-- Сюда можно вставлять список прокси -->
+        <div class="proxy-list">
+            192.168.1.1:8080<br>
+            10.0.0.1:3128
+        </div>
+    </div>
+
+</body>
+</html>
+Используйте код с осторожностью.
+Сообщите, если вы хотите улучшить этот интерфейс:
+Вывести прокси в виде интерактивной таблицы с кнопками?
+Добавить индикатор пинга (задержки) для каждого адреса?
+Сделать светлую тему вместо тёмной?
+
+
+
+
+"Вот список:tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636btg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636btg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c"
+Вот готовый HTML-код. Я оформил ваши ссылки в виде крупных, удобных для нажатия кнопок (интерфейсных плиток), которые идеально подходят для пальцев на экране смартфона.
+При нажатии на любую кнопку Telegram откроется автоматически и сразу предложит Марте подключить этот прокси.
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свежие прокси для Марты</title>
+    <style>
+        :root {
+            --bg-color: #0e1621; /* Классический темно-синий цвет Telegram */
+            --card-bg: #182533;
+            --accent-color: #2481cc;
+            --accent-hover: #2a96e6;
+            --text-main: #ffffff;
+            --text-muted: #7e8b99;
+            --border-color: #101924;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .proxy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .proxy-item {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .proxy-item:active {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: scale(0.98);
+        }
+
+        .proxy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .proxy-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 8px;
+        }
+
+        .proxy-badge {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .proxy-details {
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="greeting">Привет, Марта!</div>
+        <div class="subtitle">Держи свежие прокси:</div>
+        
+        <div class="proxy-list">
+            
+            <!-- Прокси 1 -->
+            <a href="tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665" class="proxy-item">
+                <div class="proxy-header">
+                    <div class="proxy-name">fast.garden-troll.life</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: 443</div>
+            </a>
+
+            <!-- Прокси 2 -->
+            <a href="tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665" class="proxy-item">
+                <div class="proxy-header">
+                    <div class="proxy-name">get.utkanos.life</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: 443</div>
+            </a>
+
+            <!-- Прокси 3 -->
+            <a href="tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b" class="proxy-item">
+                <div class="proxy-header">
+                    <div class="proxy-name">secure.gorbushkin.click</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: 443</div>
+            </a>
+
+            <!-- Прокси 4 -->
+            <a href="tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b" class="proxy-item">
+                <div class="proxy-header">
+                    <div class="proxy-name">cdn.savelyev.click</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: 443</div>
+            </a>
+
+            <!-- Прокси 5 -->
+            <a href="tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c" class="proxy-item">
+                <div class="proxy-header">
+                    <div class="proxy-name">cdn.toconvel.digital</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: 443</div>
+            </a>
+
+        </div>
+    </div>
+
+</body>
+</html>
+Используйте код с осторожностью.
+Если планируете развивать страницу, скажите:
+Нужно ли добавить кнопку «Подключить все по очереди» или «Выбрать случайный»?
+Требуется ли реализовать копирование ссылки по долгому нажатию?
+Хотите добавить форму, чтобы можно было удобно вставлять новые списки прямо через браузер?
+
+
+
+
+"Нужно оформить ссылки в коде так, что бы их было удобно мне добавлять"
+Чтобы вам было максимально удобно добавлять, удалять или менять ссылки, лучше всего вынести весь список прокси в простой массив в самом начале JavaScript-кода.
+Теперь вам не придется искать теги в HTML-верстке. Достаточно просто вставить чистые tg:// ссылки в массив proxyList, а скрипт сам создаст красивые мобильные кнопки и вставит их на страницу.
+Вот обновленный и готовый к работе код:
+html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -114,8 +438,186 @@
     <div class="container">
         <div class="greeting">Привет, Марта!</div>
         <div class="subtitle">Держи свежие прокси:</div>
+        
+        <!-- Сюда скрипт автоматически добавит все прокси -->
         <div id="proxyContainer" class="proxy-list"></div>
-        <div class="subtitle">🐕‍🦺</div>
+    </div>
+
+    <script>
+        // === МЕСТО ДЛЯ ВАШИХ ССЫЛОК ===
+        // Просто добавляйте или удаляйте строки внутри квадратных скобок.
+        // Каждая ссылка должна быть в кавычках, а в конце строки должна стоять запятая.
+        const proxyList = [
+            "tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665",
+            "tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
+            "tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
+            "tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
+            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c"
+        ];
+
+        // === СКРИПТ АВТОМАТИЧЕСКОЙ СБОРКИ ===
+        const container = document.getElementById('proxyContainer');
+
+        proxyList.forEach(url => {
+            try {
+                // Извлекаем адрес сервера и порт из ссылки для красивого отображения
+                const urlObj = new URL(url.replace('tg://', 'http://'));
+                const server = urlObj.searchParams.get('server') || 'Прокси';
+                const port = urlObj.searchParams.get('port') || '443';
+
+                // Создаем элемент кнопки
+                const link = document.createElement('a');
+                link.href = url;
+                link.className = 'proxy-item';
+                link.innerHTML = `
+                    <div class="proxy-header">
+                        <div class="proxy-name">${server}</div>
+                        <div class="proxy-badge">Подключить</div>
+                    </div>
+                    <div class="proxy-details">Порт: ${port}</div>
+                `;
+                container.appendChild(link);
+            } catch (e) {
+                console.error("Ошибка обработки ссылки:", url);
+            }
+        });
+    </script>
+
+</body>
+</html>
+Используйте код с осторожностью.
+Чтобы сделать процесс ещё проще, выберите один из вариантов:
+Добавить скрытую админ-панель со строкой ввода, чтобы вставлять ссылки прямо на открытой странице без редактирования файла?
+Настроить автоматическую загрузку ссылок из внешнего текстового файла (например, proxies.txt), чтобы не трогать этот HTML-код вообще?
+
+
+
+
+"почему-то выводится только приветствие, а список ссылок не выводится. Хост на github.com"
+Причина в том, что JavaScript-метод new URL() в браузерах строго работает только со стандартными интернет-протоколами (http, https и т.д.). Попытка «обмануть» его простой заменой tg:// на http:// ломает разбор параметров, если в строке содержатся сложные спецсимволы (например, в поле secret), из-за чего скрипт падает в ошибку, и кнопки на GitHub Pages перестают генерироваться. 
+
+Chromium
+Я полностью переписал логику обработки ссылок: теперь скрипт использует более надёжный метод разбора строк (split), который гарантированно работает на любом хостинге и в любом браузере.
+Вот исправленный и полностью рабочий код. Замените им содержимое вашего файла:
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свежие прокси для Марты</title>
+    <style>
+        :root {
+            --bg-color: #0e1621;
+            --card-bg: #182533;
+            --accent-color: #2481cc;
+            --text-main: #ffffff;
+            --text-muted: #7e8b99;
+            --border-color: #101924;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .proxy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .proxy-item {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .proxy-item:active {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: scale(0.98);
+        }
+
+        .proxy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .proxy-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 8px;
+        }
+
+        .proxy-badge {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .proxy-details {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="greeting">Привет, Марта!</div>
+        <div class="subtitle">Держи свежие прокси:</div>
+        
+        <div id="proxyContainer" class="proxy-list"></div>
     </div>
 
     <script>
@@ -126,8 +628,7 @@
             "tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
             "tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
             "tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
-            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c",
-            "tg://proxy?server=kino.vkmtp.pro&port=443&secret=ee616cf892574b078aab3f73e63b8b7df4786170692e6f7a6f6e2e7275"
+            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c"
         ];
 
         // === БЕЗОПАСНЫЙ ПАРСИНГ ДЛЯ GitHub Pages ===
@@ -167,3 +668,218 @@
 
 </body>
 </html>
+Используйте код с осторожностью.
+Если после коммита в GitHub изменения не отобразились сразу, подождите 1–2 минуты (пока соберется сборка GitHub Actions) и обновите страницу в браузере с очисткой кэша (Ctrl + F5 на ПК). 
+
+GitHub
+Попробуйте этот вариант. Если захотите сделать страницу ещё удобнее, дайте знать:
+Добавить ли кнопку «Скопировать чистую ссылку» рядом с кнопкой подключения, на случай если Марта захочет поделиться прокси с кем-то ещё?
+Добавить ли автоматическую сортировку портов или группировку?
+
+
+
+
+
+2 сайта
+GitHub Pages site not displaying #176175
+Solution: Check the Actions tab in your repository to see if there's a GitHub Pages deployment workflow running or if it failed. I...
+
+
+GitHub
+Chrome doesn't parse non-special URLs properly [40587286]
+In general, Chrome doesn't find an authority in any URL that isn't in a whitelisted set of schemes {http, https, file, ftp, gopher...
+
+Chromium
+"Всё отлично!
+В конце  нужно добавить символ с собачкой, только сделать его крупным :
+🐕‍🦺"
+Рад, что всё заработало!
+Вот финальная версия кода. Я добавил крупный символ служебной собаки 🐕‍🦺 в самый низ страницы, отцентрировал его и сделал оптимального размера для мобильных экранов.
+html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свежие прокси для Марты</title>
+    <style>
+        :root {
+            --bg-color: #0e1621;
+            --card-bg: #182533;
+            --accent-color: #2481cc;
+            --text-main: #ffffff;
+            --text-muted: #7e8b99;
+            --border-color: #101924;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .proxy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .proxy-item {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .proxy-item:active {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: scale(0.98);
+        }
+
+        .proxy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .proxy-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 8px;
+        }
+
+        .proxy-badge {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .proxy-details {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Стиль для крупного эмодзи собаки */
+        .dog-footer {
+            text-align: center;
+            font-size: 3.5rem; /* Крупный размер для смартфона */
+            line-height: 1;
+            margin-top: 12px;
+            user-select: none; /* Чтобы случайно не выделялся при тапах */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="greeting">Привет, Марта!</div>
+        <div class="subtitle">Держи свежие прокси:</div>
+        
+        <!-- Список прокси -->
+        <div id="proxyContainer" class="proxy-list"></div>
+
+        <!-- Крупный символ в конце страницы -->
+        <div class="dog-footer">🐕‍🦺</div>
+    </div>
+
+    <script>
+        // === МЕСТО ДЛЯ ВАШИХ ССЫЛОК ===
+        const proxyList = [
+            "tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665",
+            "tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
+            "tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
+            "tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
+            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c",
+            "tg://proxy?server=kino.vkmtp.pro&port=443&secret=ee616cf892574b078aab3f73e63b8b7df4786170692e6f7a6f6e2e7275"
+
+        ];
+
+        // === БЕЗОПАСНЫЙ ПАРСИНГ ДЛЯ GitHub Pages ===
+        const container = document.getElementById('proxyContainer');
+
+        proxyList.forEach(url => {
+            if (!url || typeof url !== 'string') return;
+
+            let server = "MTProto Proxy";
+            let port = "443";
+
+            const queryString = url.split('?')[1];
+            if (queryString) {
+                const pairs = queryString.split('&');
+                pairs.forEach(pair => {
+                    const [key, value] = pair.split('=');
+                    if (key === 'server') server = decodeURIComponent(value);
+                    if (key === 'port') port = decodeURIComponent(value);
+                });
+            }
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.className = 'proxy-item';
+            link.innerHTML = `
+                <div class="proxy-header">
+                    <div class="proxy-name">${server}</div>
+                    <div class="proxy-badge">Подключить</div>
+                </div>
+                <div class="proxy-details">Порт: ${port}</div>
+            `;
+            container.appendChild(link);
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+Задайте вопрос
+
+Ответ от режима ИИ готов.
