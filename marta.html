@@ -3,52 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Свежие прокси для Марты</title>
+    <title>Прокси для Марты</title>
     <style>
         :root {
-            --bg-color: #0e1621;
-            --card-bg: #182533;
-            --accent-color: #2481cc;
-            --text-main: #ffffff;
-            --text-muted: #7e8b99;
-            --border-color: #101924;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
             min-height: 100vh;
-            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 16px;
         }
 
         .container {
             width: 100%;
-            max-width: 440px;
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            max-width: 480px;
+            text-align: center;
         }
 
-        .greeting {
-            font-size: 1.6rem;
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
             font-weight: 700;
-            margin-bottom: 6px;
         }
 
-        .subtitle {
-            font-size: 1rem;
+        p.subtitle {
             color: var(--text-muted);
+            font-size: 1.1rem;
             margin-bottom: 24px;
         }
 
@@ -56,126 +55,155 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 24px;
+            margin-bottom: 40px;
         }
 
-        .proxy-item {
-            display: flex;
-            flex-direction: column;
-            background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px;
+        .proxy-link {
+            display: block;
+            background-color: var(--card-bg);
+            color: var(--accent);
             text-decoration: none;
-            color: inherit;
-            transition: background-color 0.2s, transform 0.1s;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .proxy-item:active {
-            background-color: rgba(255, 255, 255, 0.08);
-            transform: scale(0.98);
-        }
-
-        .proxy-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .proxy-name {
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 600;
-            font-size: 1.05rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            padding-right: 8px;
+            word-break: break-all;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            transition: transform 0.1s ease, background-color 0.2s ease;
         }
 
-        .proxy-badge {
-            background-color: var(--accent-color);
-            color: #ffffff;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 20px;
-            text-transform: uppercase;
+        .proxy-link:active {
+            transform: scale(0.98);
+            background-color: #24344d;
+            color: var(--accent-hover);
         }
 
-        .proxy-details {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        .dog-button {
+            font-size: 5rem;
+            cursor: pointer;
+            user-select: none;
+            display: inline-block;
+            transition: transform 0.1s ease;
+            margin-top: auto;
+            padding: 10px;
         }
 
-        /* Стиль для крупного эмодзи собаки */
-        .dog-footer {
-            text-align: center;
-            font-size: 3.5rem; /* Крупный размер для смартфона */
-            line-height: 1;
-            margin-top: 12px;
-            user-select: none; /* Чтобы случайно не выделялся при тапах */
+        @keyframes barkAnimation {
+            0% { transform: scale(1); }
+            20% { transform: scale(1.3) rotate(-15deg); }
+            40% { transform: scale(1.3) rotate(15deg); }
+            60% { transform: scale(1.3) rotate(-10deg); }
+            80% { transform: scale(1.3) rotate(10deg); }
+            100% { transform: scale(1); }
+        }
+
+        .barking {
+            animation: barkAnimation 0.5s ease-in-out;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="greeting">Привет, Марта!</div>
-        <div class="subtitle">Держи свежие прокси:</div>
-        
-        <!-- Список прокси -->
-        <div id="proxyContainer" class="proxy-list"></div>
+        <h1>Здравствуй, Марта!</h1>
+        <p class="subtitle">Подключай новые прокси:</p>
 
-        <!-- Крупный символ в конце страницы -->
-        <div class="dog-footer">🐕‍🦺</div>
+        <!-- Сюда скрипт сам добавит красивые кнопки -->
+        <div class="proxy-list" id="proxyContainer"></div>
     </div>
 
+    <div class="dog-button" id="dogBtn" role="button" aria-label="Лаять">🐕‍🦺</div>
+
     <script>
-        // === МЕСТО ДЛЯ ВАШИХ ССЫЛОК ===
-        const proxyList = [
-            "tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665",
-            "tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
-            "tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
-            "tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
-            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c",
-            "tg://proxy?server=kino.vkmtp.pro&port=443&secret=ee616cf892574b078aab3f73e63b8b7df4786170692e6f7a6f6e2e7275"
+        // ==========================================
+        // ВСТАВЛЯЙТЕ ВАШИ ССЫЛКИ СЮДА (ЧЕРЕЗ ЗАПЯТУЮ)
+        // ==========================================
+        const proxyRawList = [
+"tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665",
+"tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
+"tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
+"tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
+"tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c",
+"tg://proxy?server=kino.vkmtp.pro&port=443&secret=ee616cf892574b078aab3f73e63b8b7df4786170692e6f7a6f6e2e7275"
+
 
         ];
+        // ==========================================
 
-        // === БЕЗОПАСНЫЙ ПАРСИНГ ДЛЯ GitHub Pages ===
+// Генерация кнопок из текстового списка
         const container = document.getElementById('proxyContainer');
-
-        proxyList.forEach(url => {
-            if (!url || typeof url !== 'string') return;
-
-            let server = "MTProto Proxy";
-            let port = "443";
-
-            const queryString = url.split('?')[1];
-            if (queryString) {
-                const pairs = queryString.split('&');
-                pairs.forEach(pair => {
-                    const [key, value] = pair.split('=');
-                    if (key === 'server') server = decodeURIComponent(value);
-                    if (key === 'port') port = decodeURIComponent(value);
-                });
+        proxyRawList.forEach((url, index) => {
+            const cleanUrl = url.trim();
+            
+            let serverName = `Прокси ${index + 1}`;
+            try {
+                // Корректируем опечатку в третьей ссылке (proxy= на proxy?server=), если она есть
+                const fixedUrl = cleanUrl.replace('proxy=', 'proxy?server=');
+                const urlObj = new URL(fixedUrl.replace('tg://', 'http://'));
+                const serverParam = urlObj.searchParams.get('server');
+                if (serverParam) {
+                    serverName = serverParam;
+                }
+            } catch (e) {
+                // Оставляем дефолтное имя в случае ошибки
             }
 
-            const link = document.createElement('a');
-            link.href = url;
-            link.className = 'proxy-item';
-            link.innerHTML = `
-                <div class="proxy-header">
-                    <div class="proxy-name">${server}</div>
-                    <div class="proxy-badge">Подключить</div>
-                </div>
-                <div class="proxy-details">Порт: ${port}</div>
-            `;
-            container.appendChild(link);
+            const a = document.createElement('a');
+            a.className = 'proxy-link';
+            a.href = cleanUrl;
+            a.textContent = serverName;
+            
+            // ФИКС: Открываем в новой вкладке, чтобы текущая страница не терялась
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer'; 
+            
+            container.appendChild(a);
+        });
+
+        // Функция программного звука лая
+        function playBarkSound() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            createBarkWave(ctx, 0);
+            createBarkWave(ctx, 0.08);
+        }
+
+        function createBarkWave(ctx, startTime) {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const filter = ctx.createBiquadFilter();
+            
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(280, ctx.currentTime + startTime);
+            osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + startTime + 0.15);
+            
+            gain.gain.setValueAtTime(0.4, ctx.currentTime + startTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + startTime + 0.18);
+            
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(600, ctx.currentTime + startTime);
+            
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.start(ctx.currentTime + startTime);
+            osc.stop(ctx.currentTime + startTime + 0.2);
+        }
+
+        const dogBtn = document.getElementById('dogBtn');
+        dogBtn.addEventListener('click', () => {
+            playBarkSound();
+            dogBtn.classList.remove('barking');
+            void dogBtn.offsetWidth; 
+            dogBtn.classList.add('barking');
+        });
+
+        dogBtn.addEventListener('animationend', () => {
+            dogBtn.classList.remove('barking');
         });
     </script>
-
 </body>
 </html>
