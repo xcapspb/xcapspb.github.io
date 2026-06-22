@@ -2,15 +2,163 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Приветствие</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свежие прокси для Марты</title>
+    <style>
+        :root {
+            --bg-color: #0e1621;
+            --card-bg: #182533;
+            --accent-color: #2481cc;
+            --text-main: #ffffff;
+            --text-muted: #7e8b99;
+            --border-color: #101924;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .greeting {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .proxy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .proxy-item {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s, transform 0.1s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .proxy-item:active {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: scale(0.98);
+        }
+
+        .proxy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .proxy-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 8px;
+        }
+
+        .proxy-badge {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .proxy-details {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
 </head>
 <body>
-    <p>Привет Марта!!!</p>
-    <p>Держи рабочий прокси:</p>
-    <p><a href="tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665">Жми скорее!!!</a></p>
-    <p><a href="tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665">И этот !!!</a></p>
-    <p><a href="tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b">И ещё этот!!!</a></p>
-    <p><a href="tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b">И вот этот!!!</a></p>
-    <p><a href="tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c">Тоже жми!</a></p>
+
+    <div class="container">
+        <div class="greeting">Привет, Марта!</div>
+        <div class="subtitle">Держи свежие прокси:</div>
+        
+        <!-- Сюда скрипт автоматически добавит все прокси -->
+        <div id="proxyContainer" class="proxy-list"></div>
+    </div>
+
+    <script>
+        // === МЕСТО ДЛЯ ВАШИХ ССЫЛОК ===
+        // Просто добавляйте или удаляйте строки внутри квадратных скобок.
+        // Каждая ссылка должна быть в кавычках, а в конце строки должна стоять запятая.
+        const proxyList = [
+            "tg://proxy?server=fast.garden-troll.life&port=443&secret=eea3dc3cf5e6fb44c1e2f2cdd3e9bf9acb666173742e67617264656e2d74726f6c6c2e6c696665",
+            "tg://proxy?server=get.utkanos.life&port=443&secret=ee20a5ef2d379cb45bcedd56e7092a93d36765742e75746b616e6f732e6c696665",
+            "tg://proxy?server=secure.gorbushkin.click&port=443&secret=eecab4484829951a99c587564657b51ad37365637572652e676f72627573686b696e2e636c69636b",
+            "tg://proxy?server=cdn.savelyev.click&port=443&secret=ee96c7c43d46625840bd7b75721a74a43063646e2e736176656c7965762e636c69636b",
+            "tg://proxy?server=cdn.toconvel.digital&port=443&secret=ee4b626208a4a1f7bf6ed78ba01c5a4cd263646e2e746f636f6e76656c2e6469676974616c"
+            "tg://proxy?server=kino.vkmtp.pro&port=443&secret=ee616cf892574b078aab3f73e63b8b7df4786170692e6f7a6f6e2e7275"
+        ];
+
+        // === СКРИПТ АВТОМАТИЧЕСКОЙ СБОРКИ ===
+        const container = document.getElementById('proxyContainer');
+
+        proxyList.forEach(url => {
+            try {
+                // Извлекаем адрес сервера и порт из ссылки для красивого отображения
+                const urlObj = new URL(url.replace('tg://', 'http://'));
+                const server = urlObj.searchParams.get('server') || 'Прокси';
+                const port = urlObj.searchParams.get('port') || '443';
+
+                // Создаем элемент кнопки
+                const link = document.createElement('a');
+                link.href = url;
+                link.className = 'proxy-item';
+                link.innerHTML = `
+                    <div class="proxy-header">
+                        <div class="proxy-name">${server}</div>
+                        <div class="proxy-badge">Подключить</div>
+                    </div>
+                    <div class="proxy-details">Порт: ${port}</div>
+                `;
+                container.appendChild(link);
+            } catch (e) {
+                console.error("Ошибка обработки ссылки:", url);
+            }
+        });
+    </script>
+
 </body>
 </html>
