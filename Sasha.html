@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравление для Александра</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #99d1ff;
+            /*background: radial-gradient(circle, #e0f2fe 0%, #bae6fd 100%);*/
+            /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+            font-family: 'Arial', sans-serif;
+            user-select: none;
+            touch-action: manipulation; /* Убирает задержку клика на смартфонах */
+        }
+
+        /* Гирлянда флажков */
+        .garland {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .flag {
+            width: 45px;
+            height: 65px;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            animation: sway 2s infinite ease-in-out alternate;
+            transform-origin: top;
+        }
+        @keyframes sway { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+
+        /* Счетчик с плавным увеличением при ускорении */
+        #score-board {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Вспышка штрафа */
+        .penalty-flash {
+            color: #ff3333 !important;
+            transform: translateX(-50%) scale(1.6) !important;
+            text-shadow: 0 0 25px #ff0000;
+        }
+
+        /* Шарики */
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            width: 80px;
+            height: 105px;
+            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+            cursor: pointer;
+            z-index: 8;
+            box-shadow: inset -8px -8px 15px rgba(0,0,0,0.2), 
+                        inset 10px 10px 20px rgba(255,255,255,0.4);
+        }
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            width: 2px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Эффект лопания */
+        .pop {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #fff 10%, transparent 70%);
+            border-radius: 50%;
+            animation: flash 0.3s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes flash { 0% { scale: 0.2; opacity: 1; } 100% { scale: 2; opacity: 0; } }
+
+        /* Финальная надпись */
+        #congrats {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: 900;
+            text-align: center;
+            display: none;
+            z-index: 20;
+            text-shadow: 0 0 15px rgba(0,0,0,0.5);
+            animation: pulse 1.5s infinite, rainbow 4s infinite linear;
+        }
+        @keyframes pulse { 10%, 100% { scale: 1; } 50% { scale: 1.1; } }
+        @keyframes rainbow {
+            10% { color: #ff0000; } 33% { color: #00ff00; } 66% { color: #ffff00; } 100% { color: #ff0000; }
+        }
+
+        canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 5; }
+
+#modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); /* Темный фон */
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Плавное появление фона */
+}
+
+/* Само фото */
+#modal img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.3);
+    filter: grayscale(100%); /* Изначально серое */
+    transition: filter 8s ease-in-out; /* Плавный переход цвета */
+}
+
+/* Класс для активации цвета */
+#modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+#modal.active img {
+    filter: grayscale(0%); /* Становится цветным */
+}
+
+
+    </style>
+</head>
+<body>
+
+<div id="modal" onclick="this.classList.remove('active'); setTimeout(()=>this.style.display='none', 1000)">
+    <img id="celebrant-photo" src="photo.jpg" alt="Александр">
+</div>
+
+
+    <div class="garland" id="garland"></div>
+    <div id="score-board">Счёт: <span id="score">0</span>/51</div>
+    <div id="congrats">С Днём Рождения,<br>
+                         Александр!!!<br>
+                          ❤️<span id="open-photo" style="cursor: pointer; ">🎁</span>❤️<br>❤️<br><br><br>
+
+            <div style="font-size: 10px; color: #666; font-style: italic; margin-top: 15px; line-height: 1.4;">
+                 Возьми подарок виртуальный<br>
+                 И вскоре станет он реальный! 
+                 </div>
+        </div>
+    
+    <canvas id="fireworks"></canvas>
+
+    <!-- Звуки -->
+    <audio id="pop-sound" src="pop.mp3"></audio>
+    <audio id="fail-sound" src="failure.mp3"></audio>
+    <audio id="bg-music" src="Shoxrux Jamol - Shoxruxxon rubop.mp3" loop></audio>
+    <audio id="magic-sound" src="magic.mp3"></audio>
+
+    <script>
+        const scoreEl = document.getElementById('score');
+        const scoreBoard = document.getElementById('score-board');
+        const congrats = document.getElementById('congrats');
+        const popSound = document.getElementById('pop-sound');
+        const failSound = document.getElementById('fail-sound');
+        const bgMusic = document.getElementById('bg-music');
+	const modal = document.getElementById('modal');
+	const magicSound = document.getElementById('magic-sound');
+        
+        let score = 0;
+        let missedCount = 0;
+        let gameActive = true;
+        let spawnTimeout; // Переменная для управления таймером появления
+
+        const colors = ['#FF5252', '#FFEB3B', '#2196F3', '#4CAF50', '#FF9800', '#E91E63', '#9C27B0'];
+
+        // Гирлянда
+        for (let i = 0; i < 12; i++) {
+            const flag = document.createElement('div');
+            flag.className = 'flag';
+            flag.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            flag.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('garland').appendChild(flag);
+        }
+
+        // Функция управления циклом появления шаров (ускоряется!)
+        function gameLoop() {
+            if (!gameActive) return;
+
+            createBalloon();
+
+            // РАСЧЕТ СКОРОСТИ ПОЯВЛЕНИЯ:
+            // Базовая задержка 1000мс, уменьшается до 400мс к финалу
+            const nextSpawn = Math.max(400, 1000 - (score * 12));
+            spawnTimeout = setTimeout(gameLoop, nextSpawn);
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * (window.innerWidth - 100) + 20 + 'px';
+            
+            // РАСЧЕТ СКОРОСТИ ПОЛЕТА:
+            // Базовое время 5-6 сек, уменьшается до 2.5-3.5 сек к финалу
+            const speedFactor = (score / 51); 
+            const duration = (5 - (speedFactor * 2.5)) + (Math.random() * 1);
+            
+            balloon.style.transition = `bottom ${duration}s linear`;
+            document.body.appendChild(balloon);
+
+            setTimeout(() => { balloon.style.bottom = window.innerHeight + 150 + 'px'; }, 50);
+
+            balloon.onclick = () => {
+                popSound.currentTime = 0;
+                popSound.play().catch(()=>{});
+                
+                const pop = document.createElement('div');
+                pop.className = 'pop';
+                pop.style.left = balloon.offsetLeft - 20 + 'px';
+                pop.style.top = balloon.offsetTop - 10 + 'px';
+                document.body.appendChild(pop);
+                setTimeout(() => pop.remove(), 300);
+
+                balloon.remove();
+                score++;
+                updateScoreDisplay();
+                if (score >= 51) winGame();
+            };
+
+            balloon.addEventListener('transitionend', () => {
+                if (balloon.parentNode) {
+                    balloon.remove();
+                    missedCount++;
+                    if (missedCount % 2 === 0 && score > 0) {
+                        score--;
+                        applyPenalty();
+                    }
+                }
+            });
+        }
+
+        function applyPenalty() {
+            failSound.currentTime = 0;
+            failSound.play().catch(()=>{});
+            scoreBoard.classList.add('penalty-flash');
+            updateScoreDisplay();
+            setTimeout(() => scoreBoard.classList.remove('penalty-flash'), 600);
+        }
+
+        function updateScoreDisplay() {
+            scoreEl.innerText = score;
+            // Визуальный эффект: счетчик немного увеличивается при наборе очков
+            scoreBoard.style.transform = 'translateX(-50%) scale(' + (1 + (score/150)) + ')';
+        }
+
+        function winGame() {
+            gameActive = false;
+            clearTimeout(spawnTimeout);
+            scoreBoard.style.display = 'none';
+            congrats.style.display = 'block';
+            bgMusic.play().catch(() => {});
+            startFireworks();
+        }
+
+        // Запуск игры
+        gameLoop();
+
+        // --- ФЕЙЕРВЕРК ---
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function startFireworks() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            animateFireworks();
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x; this.y = y; this.color = color;
+                this.speed = Math.random() * 5 + 3;
+                this.angle = Math.random() * Math.PI * 2;
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
+                this.opacity = 1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                this.vy += 0.05; this.opacity -= 0.01;
+            }
+        }
+
+        function animateFireworks() {
+            if (gameActive) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.08) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * (canvas.height / 2);
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                for (let i = 0; i < 50; i++) particles.push(new Particle(x, y, color));
+            }
+            particles = particles.filter(p => p.opacity > 0);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateFireworks);
+        }
+
+   // ЛОГИКА МОДАЛЬНОГО ОКНА С ФОТО
+    document.getElementById('open-photo').onclick = () => {
+        // 1. Приглушаем музыку
+        bgMusic.volume = 0.2;
+        
+        // 2. Звук магии
+        magicSound.currentTime = 0;
+        magicSound.play();
+
+        // 3. Показываем фото
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 200);
+    };
+
+    modal.onclick = () => {
+        // Убираем активный класс (запускает обратную анимацию)
+        modal.classList.remove('active');
+        
+        // Возвращаем громкость музыки
+        bgMusic.volume = 1.0;
+
+        // Прячем блок совсем после завершения анимации (1 сек)
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 1000);
+    };
+
+    spawnBalloon();
+    animate();
+
+    </script>
+</body>
+</html>
